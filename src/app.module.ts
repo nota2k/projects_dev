@@ -12,16 +12,19 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 @Module({
   imports: [
     TypeOrmModule.forRoot({
-    type: 'mariadb',
-    host: 'localhost',
-    port: 3306,
-    username: 'nest_api',
-    password: 'nest_api',
-    database: 'projects_db',
-    entities: [Dev, Project, Client],
-    synchronize: true
-  }),
-    DevsModule, ProjectsModule, ClientsModule],
+      type: 'mariadb',
+      host: 'localhost',
+      port: 3306,
+      username: 'nest_api',
+      password: 'nest_api',
+      database: 'projects_db',
+      entities: [Dev, Project, Client],
+      migrations: ['migrations/*.ts'],
+      migrationsTableName: "custom_migration_table",
+      // synchronize: true
+    }),
+    DevsModule, ProjectsModule, ClientsModule
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
