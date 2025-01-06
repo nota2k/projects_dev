@@ -18,9 +18,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       username: 'nest_api',
       password: 'nest_api',
       database: 'projects_db',
-      entities: [Dev, Project, Client],
-      migrations: ['/migrations/*.ts']
-      // synchronize: true
+      entities: [Dev, Project, Client]
     }),
     DevsModule, ProjectsModule, ClientsModule
   ],
