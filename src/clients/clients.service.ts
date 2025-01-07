@@ -28,8 +28,8 @@ export class ClientsService {
     return client;
   }
 
-  async update(id: number, updateClientDto: UpdateClientDto): Promise<Client> {
-    await this.clientsRepository.update(id, updateClientDto);
+  async update(id: number, client: Partial<Client>): Promise<Client> {
+    await this.clientsRepository.update(id, client);
     return this.clientsRepository.findOneBy({id});
   }
 
