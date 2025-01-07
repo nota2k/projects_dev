@@ -37,6 +37,7 @@ export class ClientsService {
   }
 
   async remove(id: number): Promise<void> {
+    // TODO implement error handling
     await this.clientsRepository.delete(id);
   }
 }

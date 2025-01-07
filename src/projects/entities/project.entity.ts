@@ -1,31 +1,38 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToMany, JoinTable, ManyToOne } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  ManyToMany,
+  JoinTable,
+  ManyToOne,
+} from 'typeorm';
 import { Dev } from '../../devs/entities/dev.entity';
 import { Client } from '../../clients/entities/client.entity';
 
-@Entity("projects")
-
+@Entity('projects')
 export class Project {
-@PrimaryGeneratedColumn()
-    id: number;
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    @Column()
-    name: string;
+  @Column()
+  name: string;
 
-    @Column()  
-    description: string;
+  @Column()
+  description: string;
 
-    @Column()
-    deadline: string;
+  @Column()
+  deadline: string;
 
-    @Column()
-    status: string;
+  @Column()
+  status: string;
 
-    @Column()
-    price: string;
+  @Column()
+  price: number;
 
-    @ManyToMany(() => Dev)
-     devs: Dev[];
+  @ManyToMany(() => Dev)
+  @JoinTable({name: "projects_devs"})
+  devs: Dev[];
 
-    @ManyToOne(() => Client, client => client.projects)
-    client: Client;
+  @ManyToOne(() => Client, (client) => client.projects)
+  client: Client;
 }

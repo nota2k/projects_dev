@@ -1,26 +1,42 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateDevDto } from './dto/create-dev.dto';
 import { UpdateDevDto } from './dto/update-dev.dto';
+import { Dev } from './entities/dev.entity';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class DevsService {
+  constructor(
+    @InjectRepository(Dev)
+    private devsRepository: Repository<Dev>
+  ) {}
+
   create(createDevDto: CreateDevDto) {
-    return 'This action adds a new dev';
+    const newDev = this.devsRepository.create(createDevDto);
+    return this.devsRepository.save(newDev);
   }
 
-  findAll() {
-    return `This action returns all devs`;
+  findAll(): Promise<Dev[]> {
+    const devs = this.devsRepository.find();
+    return devs;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} dev`;
+  findOne(id: number): Promise<Dev> {
+    const dev = this.devsRepository.findOneBy({ id });
+    return dev;
   }
 
-  update(id: number, updateDevDto: UpdateDevDto) {
-    return `This action updates a #${id} dev`;
+  async update(id: number, updateDevDto: UpdateDevDto): Promise<Dev> {
+    const dev = await this.devsRepository.findOneBy({ id });
+    if (!dev) {
+      throw new NotFoundException(`'Dev with id ${id} not found'`);
+    }
+    await this.devsRepository.update(id, updateDevDto);
+    return this.findOne(id);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} dev`;
+  async remove(id: number) {
+    await this.devsRepository.delete(id);
   }
 }
