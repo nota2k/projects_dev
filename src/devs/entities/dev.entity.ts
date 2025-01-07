@@ -1,5 +1,5 @@
 import { Entity, Column, PrimaryGeneratedColumn, ManyToMany } from 'typeorm';
-import { Project } from 'src/projects/entities/project.entity';
+
 @Entity("devs")
 export class Dev {
      @PrimaryGeneratedColumn()
@@ -13,7 +13,4 @@ export class Dev {
      
      @Column()
      status: string;
-
-     @ManyToMany(() => Project, project => project.devs)
-     projects: Project[];
 }

@@ -1,6 +1,6 @@
 import { Entity, Column, PrimaryGeneratedColumn, ManyToMany, JoinTable, ManyToOne } from 'typeorm';
 import { Dev } from '../../devs/entities/dev.entity';
-import { Client } from 'src/clients/entities/client.entity';
+import { Client } from '../../clients/entities/client.entity';
 
 @Entity("projects")
 
@@ -23,7 +23,7 @@ export class Project {
     @Column()
     price: string;
 
-    @ManyToMany(() => Dev, dev => dev.projects)
+    @ManyToMany(() => Dev)
      devs: Dev[];
 
      @ManyToOne(() => Client, client => client.projects)

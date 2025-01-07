@@ -8,9 +8,11 @@ import { Dev } from './devs/entities/dev.entity';
 import { Project } from './projects/entities/project.entity';
 import { Client } from './clients/entities/client.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
+    ConfigModule.forRoot(),
     TypeOrmModule.forRoot({
       type: 'mariadb',
       host: 'localhost',
@@ -18,11 +20,13 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       username: 'nest_api',
       password: 'nest_api',
       database: 'projects_db',
-      entities: [Dev, Project, Client]
+      entities: [Dev, Project, Client],
+      autoLoadEntities: true
     }),
     DevsModule, ProjectsModule, ClientsModule
   ],
   controllers: [AppController],
   providers: [AppService],
+  
 })
 export class AppModule {}
