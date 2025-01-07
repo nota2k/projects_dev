@@ -18,7 +18,7 @@ export class ClientsService {
     return this.clientsRepository.save(newClient);
   }
 
-  findAll() {
+  findAll(): Promise<Client[]> {
     const clients = this.clientsRepository.find();
     return clients;
   }
@@ -28,9 +28,9 @@ export class ClientsService {
     return client;
   }
 
-  update(id: number, updateClientDto: UpdateClientDto) {
-    const client = this.clientsRepository.update(id, updateClientDto);
-    return client;
+  async update(id: number, updateClientDto: UpdateClientDto): Promise<Client> {
+    await this.clientsRepository.update(id, updateClientDto);
+    return this.clientsRepository.findOneBy({id});
   }
 
   async remove(id: number): Promise<void> {
