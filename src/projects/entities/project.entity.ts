@@ -26,6 +26,6 @@ export class Project {
     @ManyToMany(() => Dev)
      devs: Dev[];
 
-     @ManyToOne(() => Client, client => client.projects)
-     client: Client;
+    @ManyToOne(() => Client, client => client.projects)
+    client: Client;
 }

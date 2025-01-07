@@ -7,22 +7,22 @@ import { UpdateDevDto } from './dto/update-dev.dto';
 export class DevsController {
   constructor(private readonly devsService: DevsService) {}
 
-  @Post('/devs/add')
+  @Post('add')
   create(@Body() createDevDto: CreateDevDto) {
     return this.devsService.create(createDevDto);
   }
 
-  @Get('/devs')
+  @Get()
   findAll() {
     return this.devsService.findAll();
   }
 
-  @Get('/devs/:id')
+  @Get(':id')
   findOne(@Param('id') id: string) {
     return this.devsService.findOne(+id);
   }
 
-  @Patch('/devs/:id')
+  @Patch(':id')
   update(@Param('id') id: string, @Body() updateDevDto: UpdateDevDto) {
     return this.devsService.update(+id, updateDevDto);
   }
